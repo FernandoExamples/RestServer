@@ -1,41 +1,41 @@
-require('./config/config')
+require('./config/config');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
+//Configurar bodyParser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get('/usuario', function (req, res) {
-  res.json('get usuario');
-});
+//Definir las rutas del usuario
+app.use(require('./routes/user_routes'));
 
-app.post('/usuario', function (req, res) {
-  let body = req.body;
-  if (body.nombre === undefined) {
-    res.status(400).json({
-      ok: false,
-      mensaje: 'El nombre es necesario',
-    });
-  } else {
-    res.json({
-      ok: true,
-      body,
-    });
+//Conectar mongoose
+mongoose.connect(
+  process.env.URLDB,
+  { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
+  (err, resp) => {
+    if (err) throw err;
+    console.log('Conexion mongoose establecida');
   }
-});
-
-app.put('/usuario/:id', function (req, res) {
-  let idUser = req.params.id;
-  res.json({
-    idUser,
-  });
-});
-
-app.delete('/usuario', function (req, res) {
-  res.json('delete usuario');
-});
+);
 
 app.listen(process.env.PORT, () => {
-  console.log(`Escuchando en el puerto ${process.env.PORT}`);
+  console.log(`\nEscuchando en el puerto ${process.env.PORT}`);
 });
+
+//Plantilla para crear usuarios dumy
+// const Usuario = require('./models/user_model');
+// const bcrypt = require('bcrypt');
+// for (let i = 1; i <= 16; i++) {
+//   let usuario = new Usuario({
+//     nombre: `test${i}`,
+//     email: `test${i}@hotmail.com`,
+//     password: bcrypt.hashSync('123456', 10),
+//   });
+//   usuario.save((err, usuarioBD) => {
+//     if (err) console.log(err);
+//     else console.log(usuarioBD);
+//   });
+// }
