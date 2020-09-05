@@ -86,14 +86,14 @@ app.delete('/usuario/:id', function (req, res) {
   let idUser = req.params.id;
 
   ///Borrarlo físicamente de la base de datos
-  Usuario.findByIdAndDelete(idUser, (err, deletedUser) => {
-    if (err) return res.status(400).json(handleError(err));
+  // Usuario.findByIdAndDelete(idUser, (err, deletedUser) => {
+  //   if (err) return res.status(400).json(handleError(err));
 
-    res.json({
-      ok: true,
-      usuario: deletedUser,
-    });
-  });
+  //   res.json({
+  //     ok: true,
+  //     usuario: deletedUser,
+  //   });
+  // });
 
   ///Borrarlo lógicamente actualizando su estado
   Usuario.findByIdAndUpdate(
