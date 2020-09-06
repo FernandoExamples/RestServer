@@ -4,8 +4,9 @@ const bcrypt = require('bcrypt');
 const _ = require('underscore');
 
 const Usuario = require('../models/user_model');
+const { verifyToken, verifyAdminRole } = require('../middlewares/auth');
 
-app.get('/usuario', function (req, res) {
+app.get('/usuario', verifyToken, function (req, res) {
   let desde = (Number(req.query.desde) || 1) - 1;
   let limit = Number(req.query.limit) || 5;
 
@@ -30,7 +31,7 @@ app.get('/usuario', function (req, res) {
 });
 
 ///Almacenar un usuario en la base de datos
-app.post('/usuario', function (req, res) {
+app.post('/usuario', [verifyToken, verifyAdminRole], function (req, res) {
   let body = req.body;
 
   let usuario = new Usuario({
@@ -55,7 +56,7 @@ app.post('/usuario', function (req, res) {
 });
 
 ///Editar un usuario en la base de datos
-app.put('/usuario/:id', function (req, res) {
+app.put('/usuario/:id', [verifyToken, verifyAdminRole], function (req, res) {
   let idUser = req.params.id;
 
   //filtrar propiedades del body
@@ -82,7 +83,7 @@ app.put('/usuario/:id', function (req, res) {
   );
 });
 
-app.delete('/usuario/:id', function (req, res) {
+app.delete('/usuario/:id', [verifyToken, verifyAdminRole], function (req, res) {
   let idUser = req.params.id;
 
   ///Borrarlo físicamente de la base de datos

@@ -9,12 +9,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //Definir las rutas del usuario
-app.use(require('./routes/user_routes'));
+app.use(require('./routes/index'));
 
 //Conectar mongoose
 mongoose.connect(
   process.env.URLDB,
-  { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  },
   (err, resp) => {
     if (err) throw err;
     console.log('Conexion mongoose establecida');
