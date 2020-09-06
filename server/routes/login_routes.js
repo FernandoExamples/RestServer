@@ -19,13 +19,13 @@ app.post('/login', (req, res) => {
     if (!usuarioBD)
       return res.status(404).json({
         ok: false,
-        err: 'Usuario contraseña incorrectos',
+        err: 'Usuario o contraseña incorrectos',
       });
 
     if (!bcrypt.compareSync(body.password, usuarioBD.password))
       return res.status(404).json({
         ok: false,
-        err: 'Usuario contraseña incorrectos',
+        err: 'Usuario o contraseña incorrectos',
       });
 
     let token = jwt.sign({ usuario: usuarioBD }, process.env.SEED, {
