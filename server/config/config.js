@@ -28,3 +28,10 @@ if (process.env.NODE_ENV === 'dev') {
 
 //variable creada por mi
 process.env.URLDB = urlDB;
+
+//==============================
+// GOOGLE Sign In
+//==============================
+process.env.CLIENT_ID =
+  process.env.CLIENT_ID ||
+  '256670914946-9puc7vn54hr0jhjo1r5h91amrvbplnvg.apps.googleusercontent.com';

@@ -62,7 +62,7 @@ app.put('/usuario/:id', [verifyToken, verifyAdminRole], function (req, res) {
   //filtrar propiedades del body
   let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
 
-  Usuario.findByIdAndUpdate(
+  Usuario.findByIdAndUpdate( 
     idUser,
     body,
     {
