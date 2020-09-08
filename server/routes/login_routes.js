@@ -9,6 +9,10 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 
 const Usuario = require('../models/user_model');
 
+/**
+ * Loguea a un usuario mediante el email y el correo 
+ * Regresa un token como respuesta. 
+ */
 app.post('/login', (req, res) => {
   let body = req.body;
   //Validar el cuerpo de la petición
@@ -64,7 +68,10 @@ async function verify(token) {
   };
 }
 
-//ruta para autenticarse por google google
+/**
+ * Autentifica a un usuario mediante google 
+ * Regresa un token una vez que google lo ha autenticado
+ */
 app.post('/google', async (req, res) => {
   let token = req.body.idtoken;
 

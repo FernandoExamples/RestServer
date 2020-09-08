@@ -11,8 +11,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 //==============================
 // JWT seed y expiracion
 //==============================
-//60 segundos * 60 minutos * 24 horas * 30 dias = 30 dias de caducidad
-process.env.CADUCIDAD = 60 * 60 * 24 * 30;
+process.env.CADUCIDAD = '48h';
 process.env.SEED = process.env.SEED || 'este-es-el-seed-desarrollo';
 
 //==============================

@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-///Verificacion de autenticacion por token
+/**
+ * Verifica un token de autentificacion.
+ * Obtiene el usuario del payload y lo pasa al siguiente middleware por medio del request
+ */
 let verifyToken = (req, res, next) => {
   let Authorization = req.get('Authorization');
 
@@ -25,6 +28,10 @@ let verifyToken = (req, res, next) => {
   });
 };
 
+/**
+ * Verifica que un usuario sea administrador.
+ * Este middleware debe llamarse despues de verifyToken, pues requiere el usuario en la peticion
+ */
 let verifyAdminRole = (req, res, next) => {
   let usuario = req.usuario;
 

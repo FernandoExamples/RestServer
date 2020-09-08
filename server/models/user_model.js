@@ -47,7 +47,7 @@ userSchema.methods.toJSON = function () {
 };
 
 //Aplicamos el plugin de unique-validator
-userSchema.plugin(uniqueValidator, { message: 'El {PATH} debe de ser único' });
+userSchema.plugin(uniqueValidator, { message: 'El {PATH} ya se encuentra registrado' });
 
 //El modelo se exporta con el nombre de Usuario, no con userSchema
 module.exports = mongoose.model('Usuario', userSchema);

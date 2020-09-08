@@ -3,5 +3,6 @@ const app = express();
 
 app.use(require('./user_routes'));
 app.use(require('./login_routes'));
+app.use(require('./category_routes'));
 
 module.exports = app;
