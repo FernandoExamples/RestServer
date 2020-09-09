@@ -9,9 +9,8 @@ let Categoria = require('../models/category_model');
  * Mostrar todas las categorias
  */
 app.get('/categoria', verifyToken, (req, res) => {
-  let idUsuario = req.usuario._id;
 
-  Categoria.find({ usuario: idUsuario })
+  Categoria.find()
     .populate('usuario', 'nombre email') //Remplazar el objectID por los datos del usuario
     .exec((err, categorias) => {
       if (err) return res.status(500).json(handleError(err));
