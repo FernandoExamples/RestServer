@@ -18,6 +18,9 @@ var productoSchema = new Schema({
     ref: 'Categoria',
     required: [true, 'La categoria es requerida'],
   },
+  img: {
+    type: String,
+  },
   usuario: { type: Schema.Types.ObjectId, ref: 'Usuario' },
 });
 

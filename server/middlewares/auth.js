@@ -29,6 +29,32 @@ let verifyToken = (req, res, next) => {
 };
 
 /**
+ * Verifica un token de autentificacion enviado por url.
+ * Obtiene el usuario del payload y lo pasa al siguiente middleware por medio del request
+ */
+let verifyTokenByUrl = (req, res, next) => {
+  let token = req.query.token;
+
+  if (!token) {
+    return res.status(401).json({
+      ok: false,
+      message: 'Usuario no autenticado',
+    });
+  }
+
+  jwt.verify(token, process.env.SEED, (err, payload) => {
+    if (err)
+      return res.status(401).json({
+        ok: false,
+        err,
+      });
+
+    req.usuario = payload.usuario;
+    next();
+  });
+};
+
+/**
  * Verifica que un usuario sea administrador.
  * Este middleware debe llamarse despues de verifyToken, pues requiere el usuario en la peticion
  */
@@ -47,5 +73,6 @@ let verifyAdminRole = (req, res, next) => {
 
 module.exports = {
   verifyToken,
+  verifyTokenByUrl,
   verifyAdminRole,
 };
